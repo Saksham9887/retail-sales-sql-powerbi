@@ -16,8 +16,8 @@ data to an interactive Power BI dashboard and actionable business insights.
 ## Dataset
 
 Synthetic but realistic retail transactions (generated with `data/generate_data.py`,
-seeded for reproducibility): 15,000 sales, 500 customers, 25 products across 5
-categories, 20 stores across 5 regions, spanning Jan 2023–Dec 2024.
+seeded for reproducibility): 520,000 sales, 8,000 customers, 25 products across 5
+categories, 40 stores across 5 regions, spanning Jan 2023–Dec 2024.
 
 | Table | Description |
 |---|---|
@@ -70,20 +70,23 @@ The flat, join-resolved export used for Power BI is in
 
 ## Key Business Insights
 
-1. **Sports and Beauty categories drive over half of revenue (30.5% and 22.9%
-   respectively)** — while Home & Kitchen lags at just 12.5% despite similar SKU
-   count. Inventory and marketing spend should be reallocated toward the
-   top-performing categories rather than split evenly.
+1. **Category revenue is fairly evenly distributed at scale** — Apparel leads at
+23.0% of revenue, with Home & Kitchen lowest at 18.2%. Notably, an earlier
+15,000-row sample suggested a much sharper split (30.5% vs. 12.5%), showing how
+small-sample analysis can overstate business patterns that wash out at scale.
 
-2. **Regional revenue is heavily concentrated** — the West region generates ~5.8x
-   the revenue of the Northeast. This points to either a genuine demand gap (worth
-   a targeted regional marketing push in the Northeast) or a distribution/stocking
-   gap worth investigating at the store level.
+2. **Regional concentration is real but moderate** — Midwest and Southwest each
+generate ~$25.4M, roughly 2x the Northeast's ~$12.8M. (The smaller sample had
+suggested a 5.8x gap, which didn't hold up once the dataset was scaled to
+520,000 transactions.)
 
-3. **Revenue is seasonal, peaking in Q4 (Nov–Dec)** with a visible dip in
-   mid-year months. Inventory planning and promotional calendars should front-load
-   stock ahead of the holiday season and consider mid-year promotions to smooth
-   demand.
+3. **Overall average order value across all transactions is $196.05.**
+
+4. **No meaningful seasonality was found in the data** — monthly revenue stays
+within a tight $7.9M–$8.7M band year-round, including Nov/Dec. An earlier,
+smaller sample had suggested a Q4 peak; at 520,000 transactions this did not
+hold up, and a review of the data generator confirmed no seasonal effect was
+actually built into the underlying data.
 
 ## Repo structure
 
