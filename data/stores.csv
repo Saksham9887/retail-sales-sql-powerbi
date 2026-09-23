@@ -1,21 +1,41 @@
 store_id,store_name,region_id,city
-1,Store #001,4,Lake Cindy
-2,Store #002,5,Ariaschester
-3,Store #003,3,Mollyview
-4,Store #004,5,Carpenterland
-5,Store #005,5,North John
-6,Store #006,2,Port Saraborough
-7,Store #007,3,Reneeport
-8,Store #008,3,Bakermouth
-9,Store #009,3,South Peter
-10,Store #010,5,Evanview
-11,Store #011,4,West Nicole
-12,Store #012,3,Angelastad
-13,Store #013,5,North Darrellton
-14,Store #014,2,Whiteheadburgh
-15,Store #015,4,Marcusfort
-16,Store #016,2,New Shelly
-17,Store #017,4,Kyleburgh
-18,Store #018,5,New Isabelside
-19,Store #019,1,Laurashire
-20,Store #020,4,Jonathanstad
+1,Store #001,4,Wheelerland
+2,Store #002,5,Port Joshuamouth
+3,Store #003,3,North Abigail
+4,Store #004,5,Taylorview
+5,Store #005,5,Jonesmouth
+6,Store #006,2,West Davidville
+7,Store #007,3,South Heather
+8,Store #008,3,Christophershire
+9,Store #009,3,Cochranfort
+10,Store #010,5,West Jon
+11,Store #011,4,North John
+12,Store #012,3,South Josephtown
+13,Store #013,5,Danielfurt
+14,Store #014,2,Port Sarahborough
+15,Store #015,4,Cunninghamfurt
+16,Store #016,2,New Leahberg
+17,Store #017,4,North Jessica
+18,Store #018,5,Hillmouth
+19,Store #019,1,Lake Donald
+20,Store #020,4,West Barbarashire
+21,Store #021,2,Amandaland
+22,Store #022,5,East Frankmouth
+23,Store #023,4,New Rachel
+24,Store #024,1,East Barbaraview
+25,Store #025,1,Port Mary
+26,Store #026,3,Davisburgh
+27,Store #027,3,Danielletown
+28,Store #028,2,Richardton
+29,Store #029,4,Bryantberg
+30,Store #030,4,West Jennifer
+31,Store #031,3,Austinchester
+32,Store #032,4,Vaughanshire
+33,Store #033,4,Kellyport
+34,Store #034,1,Timothyview
+35,Store #035,3,South Alexis
+36,Store #036,5,Lynnchester
+37,Store #037,3,North Kristina
+38,Store #038,5,Port Steven
+39,Store #039,1,Lake Lisa
+40,Store #040,2,Port Donald

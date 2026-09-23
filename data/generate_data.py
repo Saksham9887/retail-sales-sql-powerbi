@@ -25,7 +25,7 @@ regions = pd.DataFrame({
 })
 
 # ---------- Stores ----------
-n_stores = 20
+n_stores = 40
 stores = pd.DataFrame({
     "store_id": range(1, n_stores + 1),
     "store_name": [f"Store #{i:03d}" for i in range(1, n_stores + 1)],
@@ -52,7 +52,7 @@ for cat, items in categories.items():
 products = pd.DataFrame(rows, columns=["product_id", "product_name", "category", "unit_cost", "unit_price"])
 
 # ---------- Customers ----------
-n_customers = 500
+n_customers = 8000
 customers = pd.DataFrame({
     "customer_id": range(1, n_customers + 1),
     "customer_name": [fake.name() for _ in range(n_customers)],
@@ -65,27 +65,37 @@ start_date = date(2023, 1, 1)
 end_date = date(2024, 12, 31)
 n_days = (end_date - start_date).days
 
-n_transactions = 15000
-sales_rows = []
-sid = 1
-for _ in range(n_transactions):
-    d = start_date + timedelta(days=random.randint(0, n_days))
-    # seasonal boost: Nov/Dec higher volume
-    if d.month in (11, 12) and random.random() < 0.4:
-        d = d.replace(day=random.randint(1, 28))
-    store = random.choice(stores["store_id"])
-    product = products.sample(1).iloc[0]
-    customer = random.choice(customers["customer_id"])
-    qty = np.random.choice([1, 1, 1, 2, 2, 3, 4], p=[0.35,0.2,0.15,0.15,0.08,0.05,0.02])
-    discount_pct = np.random.choice([0, 0, 0, 0.1, 0.15, 0.2], p=[0.55,0.15,0.1,0.1,0.06,0.04])
-    unit_price = product["unit_price"]
-    revenue = round(qty * unit_price * (1 - discount_pct), 2)
-    sales_rows.append([sid, d.isoformat(), store, product["product_id"], customer, qty, discount_pct, revenue])
-    sid += 1
+n_transactions = 520000
 
-sales = pd.DataFrame(sales_rows, columns=[
-    "sale_id", "sale_date", "store_id", "product_id", "customer_id", "quantity", "discount_pct", "revenue"
-])
+rand_days = np.random.randint(0, n_days + 1, n_transactions)
+sale_dates = [start_date + timedelta(days=int(d)) for d in rand_days]
+# seasonal boost: Nov/Dec higher volume (re-roll into Nov/Dec for ~40% chance if month already Nov/Dec)
+seasonal_mask = np.array([d.month in (11, 12) for d in sale_dates]) & (np.random.random(n_transactions) < 0.4)
+sale_dates = [
+    d.replace(day=random.randint(1, 28)) if seasonal_mask[i] else d
+    for i, d in enumerate(sale_dates)
+]
+
+store_ids = np.random.choice(stores["store_id"].values, n_transactions)
+product_idx = np.random.randint(0, len(products), n_transactions)
+customer_ids = np.random.choice(customers["customer_id"].values, n_transactions)
+qty = np.random.choice([1, 1, 1, 2, 2, 3, 4], size=n_transactions, p=[0.35,0.2,0.15,0.15,0.08,0.05,0.02])
+discount_pct = np.random.choice([0, 0, 0, 0.1, 0.15, 0.2], size=n_transactions, p=[0.55,0.15,0.1,0.1,0.06,0.04])
+
+prod_ids = products["product_id"].values[product_idx]
+unit_prices = products["unit_price"].values[product_idx]
+revenue = np.round(qty * unit_prices * (1 - discount_pct), 2)
+
+sales = pd.DataFrame({
+    "sale_id": range(1, n_transactions + 1),
+    "sale_date": [d.isoformat() for d in sale_dates],
+    "store_id": store_ids,
+    "product_id": prod_ids,
+    "customer_id": customer_ids,
+    "quantity": qty,
+    "discount_pct": discount_pct,
+    "revenue": revenue,
+})
 
 regions.to_csv("regions.csv", index=False)
 stores.to_csv("stores.csv", index=False)
